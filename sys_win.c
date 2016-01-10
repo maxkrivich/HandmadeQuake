@@ -1,4 +1,5 @@
 #include <windows.h>
+#include <stdlib.h>
 
 #define MAX_NUM_ARGVS 50
 
@@ -44,6 +45,6 @@ int CALLBACK WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
     largv[argc] = "";
 
     int test = COM_CheckParm("-setalpha");
-    int value = (int)(*largv[3]);
+    int value = atoi(largv[3]);
     return 0;
 }
