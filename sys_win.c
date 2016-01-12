@@ -10,6 +10,7 @@ uint8_t *largv[MAX_NUM_ARGVS + 1];
 
 int32_t Q_strcmp(const uint8_t *s1, const uint8_t *s2) 
 {
+	assert(s1 && s2);
 	while (*s1 && *s2 && *s1 == *s2) {++s1; ++s2;}
 	return *s1 - *s2;
 }
@@ -59,8 +60,9 @@ int32_t Q_atoi(const uint8_t *s)
 	return 0;
 }
 
-int32_t COM_CheckParm(char *parm)
+int32_t COM_CheckParm(uint8_t *parm)
 {
+	assert(parm);
     for (int32_t i = 1; i < argc; i++)
         if (!Q_strcmp(parm, largv[i]))
             return i;
