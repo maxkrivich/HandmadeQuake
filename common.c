@@ -1,9 +1,9 @@
 #include "quakedef.h"
 
-int32_t com_argc = 1;
-uint8_t *com_argv[MAX_NUM_ARGVS + 1];
+int32 com_argc = 1;
+uint8 *com_argv[MAX_NUM_ARGVS + 1];
 
-int32_t COM_CheckParm(uint8_t *parm)
+int32 COM_CheckParm(uint8 *parm)
 {
 	for (int32_t i = 1; i < com_argc; i++)
 		if (!Q_strcmp(parm, com_argv[i]))
@@ -11,7 +11,7 @@ int32_t COM_CheckParm(uint8_t *parm)
 	return 0;
 }
 
-void COM_ParseCmdLine(uint8_t *lpCmdLine)
+void COM_ParseCmdLine(uint8 *lpCmdLine)
 {
 	com_argv[0] = "";
 

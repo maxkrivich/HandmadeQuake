@@ -1,15 +1,15 @@
 #include "quakedef.h"
 
-int32_t Q_strcmp(const uint8_t *s1, const uint8_t *s2)
+int32 Q_strcmp(const uint8 *s1, const uint8 *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2) { ++s1; ++s2; }
 	return *s1 - *s2;
 }
 
-int32_t Q_atoi(const uint8_t *s)
+int32 Q_atoi(const uint8 *s)
 {
-	int32_t sign = 1, val = 0;
-	uint8_t c;
+	int32 sign = 1, val = 0;
+	uint8 c;
 
 	if (*s == '-')
 	{
@@ -25,13 +25,12 @@ int32_t Q_atoi(const uint8_t *s)
 		{
 			c = *s;
 			s++;
-			if (isdigit(c))
-				val = val * 16 + c - '0';
-			else if (isxdigit(c))
-			{
-				if (isupper(c)) c = c + 32;
-				val = val * 16 + c - 'a' + 10;
-			}
+			if (c >= '0' && c <= '9')
+				val = (val << 4) + c - '0';
+			else if (c >= 'a' && c <= 'f')
+				val = (val << 4) + c - 'a' + 10;
+			else if (c >= 'A' && c <= 'F')
+				val = (val << 4) + c - 'A' + 10;
 			else
 				return sign * val;
 		}
@@ -43,14 +42,13 @@ int32_t Q_atoi(const uint8_t *s)
 	{
 		c = *s;
 		s++;
-		if (!isdigit(c))
+		if (!(c >= '0' && c <= '9'))
 			return sign * val;
 		val = val * 10 + c - '0';
 	}
-	return 0;
 }
 
-void Q_strcpy(const uint8_t *from, uint8_t *to)
+void Q_strcpy(const uint8 *from, uint8 *to)
 {
 	size_t i = 0;
 	for (; from[i]; ++i)
@@ -58,7 +56,7 @@ void Q_strcpy(const uint8_t *from, uint8_t *to)
 	to[i] = 0;
 }
 
-void Q_strncpy(const uint8_t *from, uint8_t *to, int32_t cnt)
+void Q_strncpy(const uint8 *from, uint8 *to, int32 cnt)
 {
 	if (cnt < 0)
 		return;
@@ -69,7 +67,7 @@ void Q_strncpy(const uint8_t *from, uint8_t *to, int32_t cnt)
 		to[i] = 0;
 }
 
-size_t Q_strlen(const uint8_t *s)
+size_t Q_strlen(const uint8 *s)
 {
 	size_t len = 0;
 	for (; s[len]; ++len){}

@@ -1,7 +1,7 @@
 #pragma once
 
-int32_t Q_strcmp(const uint8_t *s1, const uint8_t *s2);
-int32_t Q_atoi(const uint8_t *s);
-void Q_strcpy(const uint8_t *from, uint8_t *to);
-void Q_strncpy(const uint8_t *from, uint8_t *to, int32_t cnt);
-size_t Q_strlen(const uint8_t *s);
+int32 Q_strcmp(const uint8 *s1, const uint8 *s2);
+int32 Q_atoi(const uint8 *s);
+void Q_strcpy(const uint8 *from, uint8 *to);
+void Q_strncpy(const uint8 *from, uint8 *to, int32 cnt);
+size_t Q_strlen(const uint8 *s);
