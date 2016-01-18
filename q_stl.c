@@ -1,15 +1,15 @@
 #include "quakedef.h"
 
-int32 Q_strcmp(const uint8 *s1, const uint8 *s2)
+int32 Q_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s2 && *s1 == *s2) { ++s1; ++s2; }
 	return *s1 - *s2;
 }
 
-int32 Q_atoi(const uint8 *s)
+int32 Q_atoi(const char *s)
 {
 	int32 sign = 1, val = 0;
-	uint8 c;
+	char c;
 
 	if (*s == '-')
 	{
@@ -36,6 +36,20 @@ int32 Q_atoi(const uint8 *s)
 		}
 	}
 
+	//bin 0b0110
+	if (s[0] == '0' && (s[1] == 'b' || s[1] == 'B')) 
+	{
+		s += 2;
+		while (1)
+		{
+			c = *s;
+			s++;
+			if (c == '0' || c == '1')
+				val = (val << 1) + c - '0';
+			else
+				return sign * val;
+		}
+	}
 
 	//dec
 	while (1)
@@ -48,28 +62,28 @@ int32 Q_atoi(const uint8 *s)
 	}
 }
 
-void Q_strcpy(const uint8 *from, uint8 *to)
+void Q_strcpy(const char *from, char *to)
 {
-	size_t i = 0;
+	int32 i = 0;
 	for (; from[i]; ++i)
 		to[i] = from[i];
 	to[i] = 0;
 }
 
-void Q_strncpy(const uint8 *from, uint8 *to, int32 cnt)
+void Q_strncpy(const char *from, char *to, int32 cnt)
 {
-	if (cnt < 0)
+	if (cnt <= 0)
 		return;
-	size_t i = 0;
+	int32 i = 0;
 	for (; from[i] && cnt; ++i, --cnt)
 		to[i] = from[i];
 	for (; cnt; --cnt, ++i)
 		to[i] = 0;
 }
 
-size_t Q_strlen(const uint8 *s)
+size_t Q_strlen(const char *str)
 {
-	size_t len = 0;
-	for (; s[len]; ++len){}
-	return len;
+	const char *s;
+	for (s = str; *s; ++s);
+	return (s - str);
 }
